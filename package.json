@@ -4,7 +4,7 @@
     "scripts": {
         "build": "npx postcss ./assets/css/tailwind.css -o ./assets/css/style.css",
         "start": "bundle exec jekyll serve",
-        "dev": "npm run build && npm run start"
+        "dev": "bundle install && npm run build && npm run start"
     },
     "devDependencies": {
         "postcss-cli": "^11.0.0",

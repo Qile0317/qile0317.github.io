@@ -34,3 +34,4 @@ gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 # all below added by me
 gem "jekyll-sass-converter", "~> 3.0"
+gem 'jekyll-titles-from-headings'
