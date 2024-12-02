@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/style.css">
+    {% if page.custom_css %}
+        {% for stylesheet in page.custom_css %}
+        <link rel="stylesheet" href="/assets/css/{{ stylesheet }}">
+        {% endfor %}
+    {% endif %}
+</head>
+<body class="font-sans antialiased">
+    {% include navbar.html %}
+    
+    {{ content }}
+
+    {% include footer.html %}
+
+    <script src="/assets/js/main.js"></script>
+    {% if page.custom_js %}
+        {% for script in page.custom_js %}
+        <script src="/assets/js/{{ script }}"></script>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

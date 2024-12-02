@@ -31,6 +31,10 @@ theme: minima
 plugins:
   - jekyll-feed
   - jekyll-titles-from-headings
+  - jekyll-postcss-v2
+
+postcss:
+  cache: false
 
 titles_from_headings:
   enabled:     true

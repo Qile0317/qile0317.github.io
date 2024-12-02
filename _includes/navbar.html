@@ -1,0 +1,12 @@
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-transparent p-4 transition-all duration-300">
+    <div class="container mx-auto flex justify-between items-center text-white">
+        <div class="font-bold text-xl">{{ site.title }}</div>
+        <div class="space-x-4">
+            {% for item in site.data.navigation %}
+                <a href="{{ item.link }}" class="hover:text-gray-300 {% if page.url == item.link %}active{% endif %}">
+                    {{ item.name }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</nav>

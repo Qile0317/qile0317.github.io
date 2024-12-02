@@ -2,18 +2,19 @@
     "name": "qile-yang-website",
     "version": "0.1.0",
     "scripts": {
-        "build": "npx postcss ./assets/css/tailwind.css -o ./assets/css/style.css",
+        "deps": "npm install && bundle install",
+        "build:css": "postcss ./assets/css/tailwind.css -o ./assets/css/style.css",
+        "watch:css": "postcss ./assets/css/tailwind.css -o ./assets/css/style.css --watch",
         "start": "bundle exec jekyll serve",
-        "dev": "bundle install && npm run build && npm run start"
-    },
-    "devDependencies": {
-        "postcss-cli": "^11.0.0",
-        "tailwindcss": "^3.4.15"
+        "dev": "npm run build:css && bundle exec jekyll serve --livereload --trace"
     },
     "dependencies": {
-        "postcss": "^8.0.0",
-        "tailwindcss": "^3.4.15",
         "autoprefixer": "^10.4.20",
-        "postcss": "^8.4.49"
+        "cssnano": "^7.0.6",
+        "postcss": "^8.4.49",
+        "postcss-cli": "^11.0.0"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.4.15"
     }
 }
