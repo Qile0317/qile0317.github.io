@@ -143,4 +143,5 @@ dist
 
 ## personal gitignores
 
+.vscode/
 _qile/
