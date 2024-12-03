@@ -1,0 +1,29 @@
+<!-- This is a modified version of minima's base layout -->
+
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+{%- include head.html -%}
+
+<body>
+
+    {%- include header.html -%}
+
+    <!-- <main class="page-content" aria-label="Content">
+        <div class="wrapper"> -->
+    {{ content }}
+        <!-- </div>
+    </main> -->
+
+    {%- include footer.html -%}
+
+    <script src="/assets/js/main.js"></script>
+    {% if page.custom_js %}
+        {% for script in page.custom_js %}
+        <script src="/assets/js/{{ script }}"></script>
+        {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>
