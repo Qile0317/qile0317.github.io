@@ -1,0 +1,16 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page.title | default: site.title }}</title>
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    {% if page.custom_css %}
+        {% for stylesheet in page.custom_css %}
+        <link rel="stylesheet" href="/assets/css/{{ stylesheet }}">
+        {% endfor %}
+    {% endif %}
+
+    {% if site.favicon %}
+    <link rel="icon" href="{{ site.favicon | relative_url }}">
+    {% endif %}
+</head>
