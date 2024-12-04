@@ -7,5 +7,10 @@
     {%- include footer.html -%}
     <script src="/assets/js/main.js"></script>
     <script src="/assets/js/header.js"></script>
+    {%- if page.custom_js %}
+        {%- for script in page.custom_js %}
+            <script src="/assets/js/{{ script }}.js"></script>
+        {%- endfor %}
+    {%- endif %}
 </body>
 </html>
