@@ -1,8 +1,8 @@
 - name: Home
   link: /
-- name: Projects
-  link: /projects
+# - name: Projects
+#   link: /projects
 - name: CV
   link: /cv
-- name: Blogs
-  link: /blogs/
+# - name: Blogs
+#   link: /blogs/
