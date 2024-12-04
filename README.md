@@ -1,10 +1,7 @@
 # My Personal Website
 
-Built with Jekyll and tailwind css, hosted on GitHub Pages.
-
-To run locally:
+Built with Jekyll, tailwind css, and js, hosted on GitHub Pages.
 
 ```bash
-npm run build:css
-npm run start
+npm run dev
 ```
