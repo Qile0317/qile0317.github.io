@@ -4,17 +4,21 @@
     "scripts": {
         "deps": "npm install && bundle install",
         "build:css": "postcss ./assets/css/tailwind.css -o ./assets/css/style.css",
-        "watch:css": "postcss ./assets/css/tailwind.css -o ./assets/css/style.css --watch",
+        "fetch:cv": "node scripts/pull-cv.js",
+        "build": "npm run fetch:cv && npm run build:css",
         "start": "bundle exec jekyll serve",
-        "dev": "npm run build:css && bundle exec jekyll serve --livereload --trace"
+        "dev": "npm run build && bundle exec jekyll serve --livereload --trace"
     },
     "dependencies": {
         "autoprefixer": "^10.4.20",
         "cssnano": "^7.0.6",
+        "js-yaml": "^4.1.0",
         "postcss": "^8.4.49",
         "postcss-cli": "^11.0.0"
     },
     "devDependencies": {
+        "axios": "^1.7.8",
+        "pandoc-bin": "^0.2.0",
         "tailwindcss": "^3.4.15"
     }
 }

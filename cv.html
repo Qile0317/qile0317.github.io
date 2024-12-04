@@ -1,0 +1,25 @@
+---
+layout: page
+title: Qile Yang - CV
+---
+
+<section class="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-8">
+
+  <!-- Embed the PDF directly in the page -->
+  <div class="relative w-full max-w-4xl mx-auto mb-8">
+    <iframe src="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" 
+            width="100%" height="800px" 
+            style="border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" 
+            class="rounded-lg">
+    </iframe>
+  </div>
+
+  <!-- Download link below the embedded PDF -->
+  <div class="flex justify-center w-full">
+    <a href="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" download 
+       class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
+      Click to download the pdf :D
+    </a>
+  </div>
+
+</section>
