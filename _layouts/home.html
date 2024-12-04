@@ -1,0 +1,30 @@
+---
+layout: bare
+---
+<div class="landing-page flex flex-col relative bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 text-white min-h-[calc(100vh-60px)]">
+    <div class="flex flex-col items-center justify-center min-h-screen text-center space-y-6">
+        <!-- Profile Section -->
+        <div class="flex flex-col items-center space-y-4">
+            <!-- Profile Picture -->
+            <div class="w-48 h-48 sm:w-60 sm:h-60 bg-white rounded-full overflow-hidden border-8 border-white shadow-xl">
+                <img src="/assets/images/profile.jpg" alt="Profile" class="w-full h-full object-cover">
+            </div>
+            <!-- Text Content -->
+            <div>
+                <h2 class="text-xl sm:text-2xl font-semibold">Qile Yang</h2>
+                <p class="text-sm sm:text-base text-white/80">
+                    Researcher | UC Berkeley<br>
+                    I solve problems related to biology.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- TODO Scroll Reminder -->
+</div>
+
+<main class="page-content py-12 bg-gray-50 text-gray-800">
+    <div class="wrapper">
+        {{ content }}
+    </div>
+</main>

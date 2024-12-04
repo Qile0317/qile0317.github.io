@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+{%- include head.html -%}
+<body class="{% if page.url != '/' %}has-navbar{% endif %}">
+    {%- include header.html -%}
+    {{ content }}
+    {%- include footer.html -%}
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/header.js"></script>
+    {%- if page.custom_js %}
+        {%- for script in page.custom_js %}
+            <script src="/assets/js/{{ script }}.js"></script>
+        {%- endfor %}
+    {%- endif %}
+</body>
+</html>

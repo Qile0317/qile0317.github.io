@@ -6,4 +6,4 @@ categories: update
 excerpt_separator: <!--more-->
 ---
 
-After 2 years, I've finally started to make my personal site actually presentable. Currently not planning actually post blogs here, but I'll try to keep it updated with projects and make it look nice.
+After 2 years, I've finally started trying to make my personal site actually presentable. Currently not planning to actually post blogs here, but I'll try to keep it updated with projects and make it look nice.

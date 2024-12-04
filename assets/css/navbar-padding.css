@@ -1,0 +1,4 @@
+.has-navbar {
+    padding-top: 60px; /* adjust based on navbar height*/
+    box-sizing: border-box;
+}

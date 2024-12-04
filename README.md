@@ -1,8 +1,7 @@
 # My Personal Website
 
-Work in progress.
+Built with Jekyll, tailwind css, and js, hosted on GitHub Pages.
 
 ```bash
-npm run build
-npm run start
+npm run dev
 ```
