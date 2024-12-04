@@ -21,14 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!scrollStarted && scrollTop > 0) {
             scrollStarted = true; // Set the flag when scrolling starts
             nav.classList.remove('invisible');
-            nav.classList.add('bg-gradient-to-br', 'from-indigo-600', 'via-purple-500', 'to-pink-500');
-            nav.classList.add('transition-transform', 'transform', 'translate-y-0');
+            nav.classList.add('bg-indigo-600'); // Solid color instead of gradient
+            nav.classList.remove('-translate-y-full');
+            nav.classList.add('transition-all', 'transform', 'translate-y-0'); // Smooth transition
         }
 
         if (scrollTop === 0 && !scrollStarted) {
             nav.classList.add('invisible');
-            nav.classList.remove('bg-gradient-to-br', 'from-indigo-600', 'via-purple-500', 'to-pink-500');
-            nav.classList.add('transition-transform', 'transform', 'translate-y-[-100%]');
+            nav.classList.remove('bg-indigo-600');
+            nav.classList.add('transition-all', 'transform', '-translate-y-full'); // Slide up out of view
         }
     }
 
@@ -36,8 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         if (!scrollStarted) {
             nav.classList.remove('invisible');
-            nav.classList.add('bg-gradient-to-br', 'from-indigo-600', 'via-purple-500', 'to-pink-500');
-            nav.classList.add('transition-transform', 'transform', 'translate-y-0');
+            nav.classList.add('bg-indigo-600'); // Solid color
+            nav.classList.remove('-translate-y-full');
+            nav.classList.add('transition-all', 'transform', 'translate-y-0'); // Smooth transition
         }
     }, 1000);
 
