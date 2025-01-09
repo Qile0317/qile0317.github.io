@@ -3,25 +3,98 @@ layout: page
 title: Qile Yang - CV
 ---
 
-<section class="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-8">
+<script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
 
-  <!-- Embed the PDF directly in the page -->
-  <div class="relative w-full max-w-4xl mx-auto mb-8">
-    <embed src="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" 
-      width="100%"
-      height="800px" 
-      style="border: none; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);" 
-      class="rounded-lg"
-    >
-  </embed>
+<section class="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-8">
+  <!-- Controls -->
+  <div class="flex items-center gap-4 mb-4">
+    <button id="prev" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all duration-300">Previous</button>
+    <button id="next" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all duration-300">Next</button>
+    <span class="text-gray-700">Page: <span id="page_num"></span> / <span id="page_count"></span></span>
   </div>
 
-  <!-- Download link below the embedded PDF -->
-  <div class="flex justify-center w-full">
-    <a href="/assets/cv-qile-yang.pdf" download 
+  <!-- PDF Canvas -->
+  <div class="w-full max-w-4xl mx-auto">
+    <canvas id="the-canvas" class="rounded-lg shadow-lg"></canvas>
+  </div>
+
+  <!-- Download button -->
+  <div class="mt-4">
+    <a href="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" download 
        class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
       Click to download the pdf :D
     </a>
   </div>
-
 </section>
+
+<script type="module">
+  var { pdfjsLib } = globalThis;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+
+  var pdfDoc = null,
+      pageNum = 1,
+      pageRendering = false,
+      pageNumPending = null,
+      scale = 1.5,  // Increased scale for better readability
+      canvas = document.getElementById('the-canvas'),
+      ctx = canvas.getContext('2d');
+
+  function renderPage(num) {
+    pageRendering = true;
+    pdfDoc.getPage(num).then(function(page) {
+      var viewport = page.getViewport({scale: scale});
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      var renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+      var renderTask = page.render(renderContext);
+
+      renderTask.promise.then(function() {
+        pageRendering = false;
+        if (pageNumPending !== null) {
+          renderPage(pageNumPending);
+          pageNumPending = null;
+        }
+      });
+    });
+
+    document.getElementById('page_num').textContent = num;
+  }
+
+  function queueRenderPage(num) {
+    if (pageRendering) {
+      pageNumPending = num;
+    } else {
+      renderPage(num);
+    }
+  }
+
+  function onPrevPage() {
+    if (pageNum <= 1) {
+      return;
+    }
+    pageNum--;
+    queueRenderPage(pageNum);
+  }
+
+  function onNextPage() {
+    if (pageNum >= pdfDoc.numPages) {
+      return;
+    }
+    pageNum++;
+    queueRenderPage(pageNum);
+  }
+
+  document.getElementById('prev').addEventListener('click', onPrevPage);
+  document.getElementById('next').addEventListener('click', onNextPage);
+
+  // Load and render the PDF
+  pdfjsLib.getDocument("{{ '/assets/cv-qile-yang.pdf' | relative_url }}").promise.then(function(pdfDoc_) {
+    pdfDoc = pdfDoc_;
+    document.getElementById('page_count').textContent = pdfDoc.numPages;
+    renderPage(pageNum);
+  });
+</script>
