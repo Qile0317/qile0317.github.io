@@ -6,95 +6,53 @@ title: Qile Yang - CV
 <script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
 
 <section class="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-8">
-  <!-- Controls -->
-  <div class="flex items-center gap-4 mb-4">
-    <button id="prev" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all duration-300">Previous</button>
-    <button id="next" class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 transition-all duration-300">Next</button>
-    <span class="text-gray-700">Page: <span id="page_num"></span> / <span id="page_count"></span></span>
-  </div>
-
-  <!-- PDF Canvas -->
-  <div class="w-full max-w-4xl mx-auto">
-    <canvas id="the-canvas" class="rounded-lg shadow-lg"></canvas>
+  <!-- PDF Container -->
+  <div id="pdf-container" class="w-full max-w-4xl mx-auto overflow-y-auto h-screen">
+    <!-- Individual pages will be appended here -->
   </div>
 
   <!-- Download button -->
   <div class="mt-4">
     <a href="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" download 
        class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
-      Click to download the pdf :D
+      Download pdf
     </a>
   </div>
+
 </section>
 
 <script type="module">
   var { pdfjsLib } = globalThis;
   pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
 
-  var pdfDoc = null,
-      pageNum = 1,
-      pageRendering = false,
-      pageNumPending = null,
-      scale = 1.5,  // Increased scale for better readability
-      canvas = document.getElementById('the-canvas'),
-      ctx = canvas.getContext('2d');
+  var pdfContainer = document.getElementById('pdf-container');
+  var scale = 1.5;  // Adjust scale for better readability
 
-  function renderPage(num) {
-    pageRendering = true;
-    pdfDoc.getPage(num).then(function(page) {
-      var viewport = page.getViewport({scale: scale});
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
+  // Function to render a single page
+  function renderPage(page, viewport, container) {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.className = 'mb-4 rounded-lg shadow-lg';
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
 
-      var renderContext = {
-        canvasContext: ctx,
-        viewport: viewport
-      };
-      var renderTask = page.render(renderContext);
+    var renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
 
-      renderTask.promise.then(function() {
-        pageRendering = false;
-        if (pageNumPending !== null) {
-          renderPage(pageNumPending);
-          pageNumPending = null;
-        }
-      });
-    });
+    container.appendChild(canvas);
 
-    document.getElementById('page_num').textContent = num;
+    return page.render(renderContext).promise;
   }
-
-  function queueRenderPage(num) {
-    if (pageRendering) {
-      pageNumPending = num;
-    } else {
-      renderPage(num);
-    }
-  }
-
-  function onPrevPage() {
-    if (pageNum <= 1) {
-      return;
-    }
-    pageNum--;
-    queueRenderPage(pageNum);
-  }
-
-  function onNextPage() {
-    if (pageNum >= pdfDoc.numPages) {
-      return;
-    }
-    pageNum++;
-    queueRenderPage(pageNum);
-  }
-
-  document.getElementById('prev').addEventListener('click', onPrevPage);
-  document.getElementById('next').addEventListener('click', onNextPage);
 
   // Load and render the PDF
-  pdfjsLib.getDocument("{{ '/assets/cv-qile-yang.pdf' | relative_url }}").promise.then(function(pdfDoc_) {
-    pdfDoc = pdfDoc_;
-    document.getElementById('page_count').textContent = pdfDoc.numPages;
-    renderPage(pageNum);
+  pdfjsLib.getDocument("{{ '/assets/cv-qile-yang.pdf' | relative_url }}").promise.then(function(pdfDoc) {
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      pdfDoc.getPage(i).then(function(page) {
+        var viewport = page.getViewport({scale: scale});
+        renderPage(page, viewport, pdfContainer);
+      });
+    }
   });
 </script>
