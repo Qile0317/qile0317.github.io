@@ -1,0 +1,59 @@
+---
+layout: page
+title: Qile Yang - CV
+permalink: /cv
+---
+
+<script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
+
+<section class="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-8">
+  <!-- PDF Container -->
+  <div id="pdf-container" class="w-full max-w-4xl mx-auto overflow-y-auto h-screen">
+    <!-- Individual pages will be appended here -->
+  </div>
+
+  <!-- Download button -->
+  <div class="mt-4">
+    <a href="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" download 
+       class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
+      Download pdf
+    </a>
+  </div>
+
+</section>
+
+<script type="module">
+  var { pdfjsLib } = globalThis;
+  pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.mjs';
+
+  var pdfContainer = document.getElementById('pdf-container');
+  var scale = 1.5;  // Adjust scale for better readability
+
+  // Function to render a single page
+  function renderPage(page, viewport, container) {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.className = 'mb-4 rounded-lg shadow-lg';
+    canvas.width = viewport.width;
+    canvas.height = viewport.height;
+
+    var renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+
+    container.appendChild(canvas);
+
+    return page.render(renderContext).promise;
+  }
+
+  // Load and render the PDF
+  pdfjsLib.getDocument("{{ '/assets/cv-qile-yang.pdf' | relative_url }}").promise.then(function(pdfDoc) {
+    for (let i = 1; i <= pdfDoc.numPages; i++) {
+      pdfDoc.getPage(i).then(function(page) {
+        var viewport = page.getViewport({scale: scale});
+        renderPage(page, viewport, pdfContainer);
+      });
+    }
+  });
+</script>

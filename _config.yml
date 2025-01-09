@@ -10,6 +10,7 @@ google_analytics: G-PT1NQKN626
 
 # Build settings
 theme: minima
+include: ["_pages"]
 plugins:
   - jekyll-feed
   - jekyll-titles-from-headings
