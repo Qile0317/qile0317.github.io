@@ -14,7 +14,7 @@ permalink: /cv
 
   <!-- Download button -->
   <div class="mt-4">
-    <a href="{{ '/assets/cv-qile-yang.pdf' | relative_url }}" download 
+    <a href="https://raw.githubusercontent.com/Qile0317/cv/main/cv-qile-yang.pdf" download 
        class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
       Download pdf
     </a>
@@ -48,7 +48,7 @@ permalink: /cv
   }
 
   // Load and render the PDF
-  pdfjsLib.getDocument("{{ '/assets/cv-qile-yang.pdf' | relative_url }}").promise.then(function(pdfDoc) {
+  pdfjsLib.getDocument("https://raw.githubusercontent.com/Qile0317/cv/main/cv-qile-yang.pdf").promise.then(function(pdfDoc) {
     for (let i = 1; i <= pdfDoc.numPages; i++) {
       pdfDoc.getPage(i).then(function(page) {
         var viewport = page.getViewport({scale: scale});
