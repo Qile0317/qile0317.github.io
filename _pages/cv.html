@@ -7,19 +7,20 @@ permalink: /cv
 <script src="https://mozilla.github.io/pdf.js/build/pdf.mjs" type="module"></script>
 
 <section class="flex flex-col items-center justify-center min-h-screen bg-gray-50 py-8">
-  <!-- PDF Container -->
-  <div id="pdf-container" class="w-full max-w-4xl mx-auto overflow-y-auto h-screen">
-    <!-- Individual pages will be appended here -->
+  <!-- PDF Container with vertical scroll -->
+  <div class="w-full max-w-4xl mx-auto px-4">
+    <div id="pdf-container" class="overflow-y-auto overflow-x-hidden max-h-screen">
+      <!-- Individual pages will be appended here -->
+    </div>
   </div>
 
   <!-- Download button -->
   <div class="mt-4">
-    <a href="https://raw.githubusercontent.com/Qile0317/cv/main/cv-qile-yang.pdf" download 
-       class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
+    <a href="https://raw.githubusercontent.com/Qile0317/cv/main/cv-qile-yang.pdf" download
+      class="px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-indigo-700 transition-all duration-300">
       Download pdf
     </a>
   </div>
-
 </section>
 
 <script type="module">
@@ -29,11 +30,13 @@ permalink: /cv
   var pdfContainer = document.getElementById('pdf-container');
   var scale = 1.5;  // Adjust scale for better readability
 
-  // Function to render a single page
+  // Function to render a single page with proper width handling
   function renderPage(page, viewport, container) {
     var canvas = document.createElement('canvas');
     var ctx = canvas.getContext('2d');
-    canvas.className = 'mb-4 rounded-lg shadow-lg';
+    canvas.className = 'mb-4 mx-auto max-w-full'; // Center canvas and prevent overflow
+    canvas.style.width = '100%';  // Make canvas responsive
+    canvas.style.height = 'auto'; // Maintain aspect ratio
     canvas.width = viewport.width;
     canvas.height = viewport.height;
 
@@ -43,7 +46,6 @@ permalink: /cv
     };
 
     container.appendChild(canvas);
-
     return page.render(renderContext).promise;
   }
 
