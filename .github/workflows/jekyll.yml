@@ -45,6 +45,7 @@ jobs:
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: |
+            npm run deps
             npm run build
             bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
