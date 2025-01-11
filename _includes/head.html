@@ -9,4 +9,14 @@
     {% if site.favicon %}
     <link rel="icon" href="{{ site.favicon | relative_url }}">
     {% endif %}
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PT1NQKN626"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PT1NQKN626');
+    </script>
 </head>
